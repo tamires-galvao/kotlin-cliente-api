@@ -1,0 +1,28 @@
+version: '3.6'
+
+services:
+  postgres:
+    image: postgres:13.2
+    environment:
+      POSTGRES_USER: "cliente-db"
+      POSTGRES_PASSWORD: "cliente-db"
+    ports:
+      - "5432:5432"
+    networks:
+      - pg-network
+
+  pgadmin:
+    image: dpage/pgadmin4:5.1
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "rasso@email.com"
+      PGADMIN_DEFAULT_PASSWORD: "postgres"
+    ports:
+    - "5433:80"
+    depends_on:
+      - postgres
+    networks:
+      - pg-network
+
+networks:
+  pg-network:
+    driver: bridge
